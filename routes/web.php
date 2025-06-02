@@ -11,14 +11,24 @@ Route::get('/', function () {
 
 Route::post('/registrar-acceso', function (Request $request) {
     $request->validate([
-        'curp' => 'required|string',
-        'acceso' => 'required|string|in:CNI,CINR',
+        'nombre'  => 'required|string|max:255',
+        'pape'    => 'required|string|max:255',
+        'sape'    => 'required|string|max:255',
+        'curp'    => 'required|string|size:18|regex:/^[A-Z]{4}\d{6}[HM][A-Z]{5}[0-9A-Z]\d$/',
+        'tel'     => 'required|string|max:20',
+        'email'   => 'required|email|max:255',
+        'acceso'  => 'required|string|in:CNI,CINR',
     ]);
 
     registro::create([
         'ip' => $_SERVER['HTTP_X_FORWARDED_FOR'] ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'],
         'curp' => $request->curp,
         'acceso' => $request->acceso,
+        'nombre' => $request->nombre,
+        'pape' => $request->pape,
+        'sape' => $request->sape,
+        'tel' => $request->tel,
+        'email' => $request->email,
     ]);
 
     return response()->json(['success' => true]);

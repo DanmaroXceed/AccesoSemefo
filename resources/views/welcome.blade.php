@@ -229,16 +229,22 @@
         ACCESO a SEMEFO
     </div>
 
-    <div id="curp-form">
-        <div class="curp-card">
-            <input type="text" placeholder="Ingresa tu CURP">
-            <div id="curp-error" class="curp-error"></div>
-            <button onclick="validarCURP()">CONTINUAR</button>
-        </div>
-        <div class="curp-note">
-            Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
-        </div>
+<div id="curp-form">
+    <div class="curp-card">
+        <input type="text" id="nombre" placeholder="Nombre(s)">
+        <input type="text" id="pape" placeholder="Primer apellido">
+        <input type="text" id="sape" placeholder="Segundo apellido">
+        <input type="text" id="curp" placeholder="CURP">
+        <input type="tel" id="tel" placeholder="Teléfono">
+        <input type="email" id="email" placeholder="Correo electrónico">
+
+        <div id="curp-error" class="curp-error"></div>
+        <button onclick="validarCURP()">CONTINUAR</button>
     </div>
+    <div class="curp-note">
+        Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
+    </div>
+</div>
 
     <div id="result-links" class="fade result-links">
         <h2 class="text-center">Selecciona un sistema para redireccionar</h2>
@@ -297,24 +303,53 @@
         }
 
         function validarCURP() {
-            const input = document.querySelector('#curp-form input');
-            const valor = input.value.trim().toUpperCase();
+            const nombre = document.getElementById('nombre').value.trim();
+            const pape = document.getElementById('pape').value.trim();
+            const sape = document.getElementById('sape').value.trim();
+            const curp = document.getElementById('curp').value.trim().toUpperCase();
+            const tel = document.getElementById('tel').value.trim();
+            const email = document.getElementById('email').value.trim();
             const errorMsg = document.getElementById('curp-error');
-            document.getElementById('acceso-banner').style.display = 'block';
 
-
+            // Expresiones regulares
             const regexCURP = /^[A-Z]{4}\d{6}[HM][A-Z]{5}[0-9A-Z]\d$/;
+            const regexTel = /^\d{10}$/;
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!regexCURP.test(valor)) {
+            // Validaciones
+            if (!nombre || !pape || !sape || !curp || !tel || !email) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = 'Todos los campos son obligatorios.';
+                return;
+            }
+
+            if (!regexCURP.test(curp)) {
                 errorMsg.style.display = 'block';
                 errorMsg.textContent = 'CURP inválida. Verifica el formato.';
+                return;
+            }
+
+            if (!regexTel.test(tel)) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = 'Número de teléfono inválido. Deben ser 10 dígitos.';
+                return;
+            }
+
+            if (!regexEmail.test(email)) {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = 'Correo electrónico inválido.';
                 return;
             }
 
             errorMsg.style.display = 'none';
 
             // GUARDAR la CURP para uso futuro (localStorage o variable)
-            localStorage.setItem('curp_usuario', valor);
+            localStorage.setItem('curp', curp);
+            localStorage.setItem('nombre', nombre);
+            localStorage.setItem('pape', pape);
+            localStorage.setItem('sape', sape);
+            localStorage.setItem('tel', tel);
+            localStorage.setItem('email', email);
 
             const form = document.getElementById('curp-form');
             const links = document.getElementById('result-links');
@@ -334,7 +369,12 @@
         }
 
         function registrarAcceso(tipoAcceso, destino) {
-            const curp = localStorage.getItem('curp_usuario');
+            const curp = localStorage.getItem('curp');
+            const nombre = localStorage.getItem('nombre');
+            const pape = localStorage.getItem('pape');
+            const sape = localStorage.getItem('sape');
+            const tel = localStorage.getItem('tel');
+            const email = localStorage.getItem('email');
             document.getElementById('spinner-overlay').style.display = 'flex';
 
             if (!curp) {
@@ -349,7 +389,12 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 },
                 body: JSON.stringify({
+                    nombre: nombre,
+                    pape: pape,
+                    sape: sape,
                     curp: curp,
+                    tel: tel,
+                    email: email,
                     acceso: tipoAcceso
                 })
             }).then(response => {

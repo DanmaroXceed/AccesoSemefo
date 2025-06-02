@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('registros', function (Blueprint $table) {
             $table->id();
             $table->string('ip');
+            $table->string('nombre');
+            $table->string('pape');
+            $table->string('sape');
             $table->string('curp');
+            $table->string('tel');
+            $table->string('email');
             $table->string('acceso');
             $table->timestamps();
         });

@@ -8,7 +8,12 @@ class registro extends Model
 {
     protected $fillable = [
         'ip',
+        'nombre',
+        'pape',
+        'sape',
         'curp',
+        'tel',
+        'email',
         'acceso',
     ];
 }
