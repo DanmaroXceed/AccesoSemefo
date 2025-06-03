@@ -79,7 +79,7 @@
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 1000px;
             text-align: center;
         }
 
@@ -111,6 +111,18 @@
             color: #666;
             margin-top: 10px;
             max-width: 500px;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-row input {
+            flex: 1 1 calc(33.33% - 10px);
+            min-width: 100px;
         }
 
         /* Animaciones */
@@ -231,20 +243,29 @@
 
 <div id="curp-form">
     <div class="curp-card">
-        <input type="text" id="nombre" placeholder="Nombre(s)">
-        <input type="text" id="pape" placeholder="Primer apellido">
-        <input type="text" id="sape" placeholder="Segundo apellido">
-        <input type="text" id="curp" placeholder="CURP">
-        <input type="tel" id="tel" placeholder="Teléfono">
-        <input type="email" id="email" placeholder="Correo electrónico">
+        <!-- Primera fila: nombre y apellidos -->
+        <div class="input-row">
+            <input type="text" id="nombre" placeholder="Nombre(s)">
+            <input type="text" id="pape" placeholder="Primer apellido">
+            <input type="text" id="sape" placeholder="Segundo apellido">
+        </div>
+
+        <!-- Segunda fila: curp, teléfono, email -->
+        <div class="input-row">
+            <input type="text" id="curp" placeholder="CURP">
+            <input type="tel" id="tel" placeholder="Teléfono">
+            <input type="email" id="email" placeholder="Correo electrónico">
+        </div>
 
         <div id="curp-error" class="curp-error"></div>
         <button onclick="validarCURP()">CONTINUAR</button>
     </div>
+
     <div class="curp-note">
         Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
     </div>
 </div>
+
 
     <div id="result-links" class="fade result-links">
         <h2 class="text-center">Selecciona un sistema para redireccionar</h2>
