@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Ícono clásico del navegador -->
+    <link rel="icon" type="image/png" href="{{ asset('/logoweb-1.png') }}" sizes="32x32">
+
+    <!-- Ícono para dispositivos móviles / apps -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('/logoweb-1.png') }}">
+
+    <!-- Apple touch icon (opcional si se requiere para iOS) -->
+    <link rel="apple-touch-icon" href="{{ asset('/logoweb-1.png') }}">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Acceso SEMEFO</title>
