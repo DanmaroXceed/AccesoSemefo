@@ -205,6 +205,7 @@
             box-sizing: border-box;
             margin-top: 20px;
             height: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .custom-spinner {
@@ -241,30 +242,30 @@
         ACCESO a SEMEFO
     </div>
 
-<div id="curp-form">
-    <div class="curp-card">
-        <!-- Primera fila: nombre y apellidos -->
-        <div class="input-row">
-            <input type="text" id="nombre" placeholder="Nombre(s)">
-            <input type="text" id="pape" placeholder="Primer apellido">
-            <input type="text" id="sape" placeholder="Segundo apellido">
+    <div id="curp-form">
+        <div class="curp-card">
+            <!-- Primera fila: nombre y apellidos -->
+            <div class="input-row">
+                <input type="text" id="nombre" placeholder="Nombre(s)">
+                <input type="text" id="pape" placeholder="Primer apellido">
+                <input type="text" id="sape" placeholder="Segundo apellido">
+            </div>
+
+            <!-- Segunda fila: curp, teléfono, email -->
+            <div class="input-row">
+                <input type="text" id="curp" placeholder="CURP">
+                <input type="tel" id="tel" placeholder="Teléfono">
+                <input type="email" id="email" placeholder="Correo electrónico">
+            </div>
+
+            <div id="curp-error" class="curp-error"></div>
+            <button onclick="validarCURP()">CONTINUAR</button>
         </div>
 
-        <!-- Segunda fila: curp, teléfono, email -->
-        <div class="input-row">
-            <input type="text" id="curp" placeholder="CURP">
-            <input type="tel" id="tel" placeholder="Teléfono">
-            <input type="email" id="email" placeholder="Correo electrónico">
+        <div class="curp-note">
+            Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
         </div>
-
-        <div id="curp-error" class="curp-error"></div>
-        <button onclick="validarCURP()">CONTINUAR</button>
     </div>
-
-    <div class="curp-note">
-        Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
-    </div>
-</div>
 
 
     <div id="result-links" class="fade result-links">
@@ -302,6 +303,7 @@
         function mostrarFormulario() {
             const initial = document.getElementById('initial-content');
             const curp = document.getElementById('curp-form');
+            const banner = document.getElementById('acceso-banner');
 
             // Oculta el contenido inicial con animación
             initial.classList.add('fade-out');
@@ -311,14 +313,16 @@
 
                 // Muestra el formulario y prepara para la animación
                 curp.style.display = 'flex';
+                banner.style.display = 'block';
 
                 // Agrega clase fade (asegura transiciones) y luego trigger de fade-in
                 curp.classList.add('fade');
+                banner.classList.add('fade')
 
                 setTimeout(() => {
                     curp.style.opacity = 1;
                     curp.classList.add('fade-in');
-                    document.getElementById('acceso-banner').style.display = 'block';
+                    banner.classList.add('fade-in');
                 }, 50); // Pequeña pausa para que el navegador lo procese
             }, 500); // Espera a que termine el fade-out
         }
