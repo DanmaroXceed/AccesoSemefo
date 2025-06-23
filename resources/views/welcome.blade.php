@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -86,7 +87,7 @@
             background: #f9f9f9;
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 1000px;
             text-align: center;
@@ -154,6 +155,7 @@
             max-width: 90%;
             height: 100%;
         }
+
         .enlace-img:hover {
             transform: scale(1.02);
         }
@@ -227,20 +229,41 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
+        .btn-regresar {
+            background-color: #334d75;
+            color: white;
+            padding: 10px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-regresar:hover {
+            background-color: #0056b3;
+            transform: scale(1.02);
+        }
     </style>
 </head>
+
 <body>
 
     <div id="initial-content" class="fade">
         <div class="text-center">
-            <strong>La publicación de las presentes fichas es con el fin de localizar a sus familiares y reintegrar a las personas a casa.</strong>
+            <strong>La publicación de las presentes fichas es con el fin de localizar a sus familiares y reintegrar a
+                las personas a casa.</strong>
         </div>
 
         <div class="pdf-container">
-            <iframe src="{{ asset('Aviso-de-confidencialidad-Cedulas-CNI.pdf') }}#toolbar=0" class="pdf-viewer"></iframe>
+            <iframe src="{{ asset('Aviso-de-confidencialidad-Cedulas-CNI.pdf') }}#toolbar=0"
+                class="pdf-viewer"></iframe>
             <iframe src="{{ asset('Aviso-de-Privacidad-Integral-DGSP.pdf') }}#toolbar=0" class="pdf-viewer"></iframe>
         </div>
 
@@ -272,7 +295,8 @@
         </div>
 
         <div class="curp-note">
-            Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es confidencial y se utiliza únicamente para este fin.
+            Este dato es solicitado para verificar la identidad y evitar duplicidad en el registro. La información es
+            confidencial y se utiliza únicamente para este fin.
         </div>
     </div>
 
@@ -280,17 +304,22 @@
     <div id="result-links" class="fade result-links">
         <h2 class="text-center">Selecciona un sistema para redireccionar</h2>
 
-        <a href="#" onclick="registrarAcceso('CNI', 'https://busqueda-cni.fiscaliazacatecas.gob.mx'); return false;">
+        <a href="#"
+            onclick="registrarAcceso('CNI', 'https://busqueda-cni.fiscaliazacatecas.gob.mx'); return false;">
             <img src="{{ asset('cni.jpg') }}" class="enlace-img" alt="Opción 1">
         </a>
 
-        <a href="#" onclick="registrarAcceso('CINR', 'https://cedid.fiscaliazacatecas.gob.mx'); return false;" style="margin-top: 20px;">
+        <a href="#" onclick="registrarAcceso('CINR', 'https://cedid.fiscaliazacatecas.gob.mx'); return false;"
+            style="margin-top: 20px;">
             <img src="{{ asset('ci-nr.jpg') }}" class="enlace-img" alt="Opción 2">
         </a>
+
+        <button class="btn-regresar" onclick="limpiarLocalStorage()">Regresar</button>
     </div>
 
     <!-- Spinner con overlay -->
-    <div id="spinner-overlay" style="
+    <div id="spinner-overlay"
+        style="
         display: none;
         position: fixed;
         top: 0; left: 0;
@@ -309,13 +338,13 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            const TimestampKey = 'Time';  // Clave para guardar el timestamp
-            const timer = 30 * 60 * 1000;  // 30 minutos en milisegundos
+        document.addEventListener('DOMContentLoaded', function() {
+            const TimestampKey = 'Time'; // Clave para guardar el timestamp
+            const timer = 30 * 60 * 1000; // 30 minutos en milisegundos
             // localStorage.setItem('timer', timer);
             // Obtener el tiempo actual
             const currentTime = new Date().getTime();
-            
+
             // Verificar si se ingresaron datos y cuándo
             const storedTime = localStorage.getItem(TimestampKey);
 
@@ -332,21 +361,26 @@
 
                 initial.style.display = 'none';
 
-                banner.style.display = 'block';
-                banner.classList.add('fade')
 
                 setTimeout(() => {
+                    banner.style.display = 'block';
                     links.style.display = 'flex';
 
+                    banner.classList.add('fade')
                     setTimeout(() => {
+                        links.style.opacity = 1;
+
                         links.classList.add('fade-in');
                         banner.classList.add('fade-in');
-
-                        links.style.opacity = 1;
                     }, 50);
                 }, 500);
             }
         })
+
+        function limpiarLocalStorage() {
+            localStorage.clear();
+            location.reload();
+        }
 
         function mostrarFormulario() {
             const initial = document.getElementById('initial-content');
@@ -488,4 +522,5 @@
     </script>
 
 </body>
+
 </html>
