@@ -255,14 +255,14 @@
         <div class="curp-card">
             <!-- Primera fila: nombre y apellidos -->
             <div class="input-row">
-                <input type="text" id="nombre" placeholder="Nombre(s)">
-                <input type="text" id="pape" placeholder="Primer apellido">
-                <input type="text" id="sape" placeholder="Segundo apellido">
+                <input type="text" id="nombre" placeholder="Nombre(s) *">
+                <input type="text" id="pape" placeholder="Primer apellido *">
+                <input type="text" id="sape" placeholder="Segundo apellido *">
             </div>
 
             <!-- Segunda fila: curp, teléfono, email -->
             <div class="input-row">
-                <input type="text" id="curp" placeholder="CURP">
+                <input type="text" id="curp" placeholder="CURP *">
                 <input type="tel" id="tel" placeholder="Teléfono">
                 <input type="email" id="email" placeholder="Correo electrónico">
             </div>
@@ -390,9 +390,9 @@
             const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             // Validaciones
-            if (!nombre || !pape || !sape || !curp || !tel || !email) {
+            if (!nombre || !pape || !sape || !curp) {
                 errorMsg.style.display = 'block';
-                errorMsg.textContent = 'Todos los campos son obligatorios.';
+                errorMsg.textContent = 'Ingresa los datos que tienen *.';
                 return;
             }
 
