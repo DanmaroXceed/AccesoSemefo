@@ -309,6 +309,45 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const TimestampKey = 'Time';  // Clave para guardar el timestamp
+            const timer = 30 * 60 * 1000;  // 30 minutos en milisegundos
+            // localStorage.setItem('timer', timer);
+            // Obtener el tiempo actual
+            const currentTime = new Date().getTime();
+            
+            // Verificar si se ingresaron datos y cuándo
+            const storedTime = localStorage.getItem(TimestampKey);
+
+            // si no se han registrado datos o han pasado mas de 30 minutos
+            if ((currentTime - storedTime) > timer) {
+                localStorage.setItem('accede', false);
+            }
+            if (localStorage.getItem('accede') === "true") {
+                // localStorage.setItem('tiempo', (currentTime - storedTime))
+                // Mostrar la ultima seccion
+                const initial = document.getElementById('initial-content');
+                const banner = document.getElementById('acceso-banner');
+                const links = document.getElementById('result-links');
+
+                initial.style.display = 'none';
+
+                banner.style.display = 'block';
+                banner.classList.add('fade')
+
+                setTimeout(() => {
+                    links.style.display = 'flex';
+
+                    setTimeout(() => {
+                        links.classList.add('fade-in');
+                        banner.classList.add('fade-in');
+
+                        links.style.opacity = 1;
+                    }, 50);
+                }, 500);
+            }
+        })
+
         function mostrarFormulario() {
             const initial = document.getElementById('initial-content');
             const curp = document.getElementById('curp-form');
@@ -384,6 +423,10 @@
             localStorage.setItem('sape', sape);
             localStorage.setItem('tel', tel);
             localStorage.setItem('email', email);
+
+            localStorage.setItem('accede', true);
+            // Guardar el timestamp actual en el localStorage y marcar que fue mostrado
+            localStorage.setItem('Time', new Date().getTime());
 
             const form = document.getElementById('curp-form');
             const links = document.getElementById('result-links');
