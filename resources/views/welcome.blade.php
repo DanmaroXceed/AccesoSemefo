@@ -15,7 +15,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Acceso SEMEFO</title>
+    <title>Acceso PFSI</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -271,7 +271,7 @@
     </div>
 
     <div id="acceso-banner" class="acceso-banner" style="display: none;">
-        ACCESO a SEMEFO
+        Acceso a Personas Fallecidas
     </div>
 
     <div id="curp-form">
@@ -306,12 +306,12 @@
 
         <a href="#"
             onclick="registrarAcceso('CNI', 'https://busqueda-cni.fiscaliazacatecas.gob.mx'); return false;">
-            <img src="{{ asset('cni.jpg') }}" class="enlace-img" alt="Opción 1">
+            <img src="{{ asset('pfsi.jpg') }}" class="enlace-img" alt="Opción 1">
         </a>
 
         <a href="#" onclick="registrarAcceso('CINR', 'https://cedid.fiscaliazacatecas.gob.mx'); return false;"
             style="margin-top: 20px;">
-            <img src="{{ asset('ci-nr.jpg') }}" class="enlace-img" alt="Opción 2">
+            <img src="{{ asset('pfinr.jpg') }}" class="enlace-img" alt="Opción 2">
         </a>
 
         <button class="btn-regresar" onclick="limpiarLocalStorage()">Regresar</button>
